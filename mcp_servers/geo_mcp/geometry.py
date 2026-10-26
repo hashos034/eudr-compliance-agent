@@ -7,11 +7,22 @@ Every function takes a GeoJSON geometry dict, e.g.
 Nothing in here knows about MCP or LLMs, so it is easy to unit test.
 """
 
-from shapely.geometry import shape  # noqa: F401  (you will need these)
-from shapely.validation import explain_validity  # noqa: F401
+from pyproj import Geod
+from shapely.geometry import shape
+from shapely.validation import explain_validity
 
 # Above this size, the EUDR requires a polygon instead of a single point.
 MAX_POINT_AREA_HA = 4.0
+
+# The WGS84 ellipsoid: the model of the Earth's shape that GPS uses.
+GEOD = Geod(ellps="WGS84")
+
+
+def _rings(geometry: dict) -> list[list[list[float]]]:
+    """The coordinate lists of a geometry: one 'ring' for a Point, all rings for a Polygon."""
+    if geometry["type"] == "Point":
+        return [[geometry["coordinates"]]]
+    return geometry["coordinates"]
 
 
 def validate_geometry(geometry: dict) -> list[str]:
@@ -21,35 +32,42 @@ def validate_geometry(geometry: dict) -> list[str]:
     1. Every coordinate is in range: longitude -180..180, latitude -90..90.
     2. Every polygon ring is closed: its first point equals its last point.
     3. Shapely considers the shape valid (e.g. no self-intersections).
-
-    Write each problem as a short human-readable string, for example
-    "latitude 108.1 is out of range (-90..90)" or "ring is not closed".
     """
-    # TODO(Hassan): implement the three checks.
-    # Hints:
-    # - For a Point, geometry["coordinates"] is ONE [lon, lat] pair.
-    #   For a Polygon, it is a list of rings, each ring a list of [lon, lat].
-    #   Writing a small helper that collects all pairs for either type helps.
-    # - Remember the data checks: Shapely quietly closes open rings and
-    #   doesn't know lat/lon ranges, so checks 1 and 2 need the RAW coordinates.
-    # - For check 3: shape(geometry).is_valid, and explain_validity(...) says why.
-    # - Tip: if check 1 or 2 already failed, return early; the Shapely
-    #   result on broken input isn't meaningful.
-    raise NotImplementedError
+    errors = []
+
+    # 1. Range check on the raw numbers. Shapely doesn't know what a latitude is.
+    #    Report only the first bad point per ring, to keep the message short.
+    for ring in _rings(geometry):
+        for lon, lat in ring:
+            if not -180 <= lon <= 180:
+                errors.append(f"longitude {lon} is out of range (-180..180)")
+                break
+            if not -90 <= lat <= 90:
+                errors.append(f"latitude {lat} is out of range (-90..90)")
+                break
+
+    # 2. Closed check on the raw ring. Shapely would silently close it for us.
+    if geometry["type"] == "Polygon":
+        for ring in geometry["coordinates"]:
+            if ring[0] != ring[-1]:
+                errors.append("polygon ring is not closed (first point != last point)")
+
+    # 3. Only ask Shapely once the raw data makes sense.
+    if errors:
+        return errors
+    shp = shape(geometry)
+    if not shp.is_valid:
+        errors.append(f"invalid shape: {explain_validity(shp)}")
+    return errors
 
 
 def calculate_area_ha(geometry: dict) -> float:
     """Area of a polygon in hectares (1 ha = 10,000 m²). A Point has area 0."""
-    # TODO(Hassan): implement.
-    # Hints:
-    # - shape(geometry).area is in "square degrees", which is meaningless:
-    #   a degree of longitude shrinks as you move away from the equator.
-    # - Use pyproj's Geod to measure on the real Earth:
-    #       from pyproj import Geod
-    #       geod = Geod(ellps="WGS84")
-    #       area_m2, _perimeter = geod.geometry_area_perimeter(shape(geometry))
-    #   area_m2 can come back negative depending on the ring direction: use abs().
-    raise NotImplementedError
+    if geometry["type"] == "Point":
+        return 0.0
+    # Measure on the curved Earth, not in "square degrees".
+    area_m2, _perimeter = GEOD.geometry_area_perimeter(shape(geometry))
+    return abs(area_m2) / 10_000
 
 
 def check_point_or_polygon(geometry: dict, declared_area_ha: float) -> list[str]:
@@ -57,5 +75,9 @@ def check_point_or_polygon(geometry: dict, declared_area_ha: float) -> list[str]
 
     Return a list of problems (empty list means OK).
     """
-    # TODO(Hassan): implement. For points, all you have is declared_area_ha.
-    raise NotImplementedError
+    if geometry["type"] == "Point" and declared_area_ha > MAX_POINT_AREA_HA:
+        return [
+            f"plot is {declared_area_ha} ha but given as a point; "
+            f"plots over {MAX_POINT_AREA_HA} ha need a polygon"
+        ]
+    return []
