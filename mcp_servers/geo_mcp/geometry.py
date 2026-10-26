@@ -9,6 +9,7 @@ Nothing in here knows about MCP or LLMs, so it is easy to unit test.
 
 from pyproj import Geod
 from shapely.geometry import shape
+from shapely.geometry.base import BaseGeometry
 from shapely.validation import explain_validity
 
 # Above this size, the EUDR requires a polygon instead of a single point.
@@ -68,6 +69,21 @@ def calculate_area_ha(geometry: dict) -> float:
     # Measure on the curved Earth, not in "square degrees".
     area_m2, _perimeter = GEOD.geometry_area_perimeter(shape(geometry))
     return abs(area_m2) / 10_000
+
+
+def find_country(geometry: dict, countries: list[tuple[str, BaseGeometry]]) -> str | None:
+    """Return the ISO code of the country the plot lies in, or None if it's in none.
+
+    `countries` is a list of (iso_code, border_shape) pairs, e.g. ("ET", <MultiPolygon>).
+    """
+    # TODO(Hassan): implement. About 5 lines.
+    # Hints:
+    # - Turn the plot into ONE point you can test: shape(geometry).representative_point()
+    #   gives a point guaranteed to lie inside the shape (works for Points too).
+    # - Loop over the (code, border) pairs and return the code of the first
+    #   border that .contains(...) that point.
+    # - If no border contains it (e.g. in the ocean), return None.
+    raise NotImplementedError
 
 
 def check_point_or_polygon(geometry: dict, declared_area_ha: float) -> list[str]:

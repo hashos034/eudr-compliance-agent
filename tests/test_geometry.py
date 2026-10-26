@@ -2,7 +2,8 @@
 
 import pytest
 
-from mcp_servers.geo_mcp.geometry import validate_geometry
+from mcp_servers.geo_mcp.countries import load_countries
+from mcp_servers.geo_mcp.geometry import find_country, validate_geometry
 from mcp_servers.geo_mcp.plots import load_plots
 
 PLOTS = load_plots()
@@ -33,3 +34,16 @@ def test_swapped_lat_lon_is_out_of_range():
     errors = validate_geometry(geom("P15"))
     assert errors, "lat/lon swapped should give an error"
     assert "latitude" in errors[0].lower()
+
+
+@pytest.mark.parametrize(
+    "plot_id, country",
+    [("P01", "ET"), ("P05", "CO"), ("P09", "BR"), ("P13", "VN"), ("P04", "KE"), ("P08", "EC")],
+)
+def test_find_country(plot_id, country):
+    assert find_country(geom(plot_id), load_countries()) == country
+
+
+def test_find_country_in_the_ocean_is_none():
+    atlantic = {"type": "Point", "coordinates": [-30.0, 0.0]}
+    assert find_country(atlantic, load_countries()) is None

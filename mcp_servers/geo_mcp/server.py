@@ -11,6 +11,7 @@ Inspect it:      npx @modelcontextprotocol/inspector uv run python -m mcp_server
 from fastmcp import FastMCP
 
 from mcp_servers.geo_mcp import geometry
+from mcp_servers.geo_mcp.countries import load_countries
 from mcp_servers.geo_mcp.plots import load_plots
 
 mcp = FastMCP("geo-mcp")
@@ -52,7 +53,18 @@ def check_point_or_polygon(plot_id: str) -> dict:
     return {"plot_id": plot_id, "ok": not errors, "errors": errors}
 
 
-# check_country comes in the next step: it needs country border data.
+@mcp.tool
+def check_country(plot_id: str) -> dict:
+    """Check that a plot lies in the country its supplier declared."""
+    feature = _get_plot(plot_id)
+    declared = feature["properties"]["declared_country"]
+    if geometry.validate_geometry(feature["geometry"]):
+        return {"plot_id": plot_id, "ok": False, "declared_country": declared,
+                "found_country": None, "errors": ["geometry is invalid; run validate_geometry"]}
+    found = geometry.find_country(feature["geometry"], load_countries())
+    errors = [] if found == declared else [f"declared {declared}, but plot lies in {found or 'no country'}"]
+    return {"plot_id": plot_id, "ok": not errors, "declared_country": declared,
+            "found_country": found, "errors": errors}
 
 if __name__ == "__main__":
     mcp.run()
