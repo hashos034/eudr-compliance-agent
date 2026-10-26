@@ -47,3 +47,25 @@ def test_find_country(plot_id, country):
 def test_find_country_in_the_ocean_is_none():
     atlantic = {"type": "Point", "coordinates": [-30.0, 0.0]}
     assert find_country(atlantic, load_countries()) is None
+
+
+def test_tool_results_never_contain_coordinates():
+    """Design rule: coordinates must never reach the LLM, not even inside an error message."""
+    import asyncio
+    import json
+    import re
+
+    from mcp_servers.geo_mcp.server import mcp
+
+    # Any number with 3+ decimals, or a "[x y]" pair, looks like a coordinate.
+    coordinate = re.compile(r"-?\d+\.\d{3,}|\[-?\d+(\.\d+)? -?\d+(\.\d+)?\]")
+    tools = ["validate_geometry", "calculate_area_ha", "check_point_or_polygon", "check_country"]
+
+    async def call_all():
+        for plot_id in PLOTS:
+            for tool in tools:
+                result = await mcp.call_tool(tool, {"plot_id": plot_id})
+                text = json.dumps(result.structured_content)
+                assert not coordinate.search(text), f"{tool}({plot_id}) leaks coordinates: {text}"
+
+    asyncio.run(call_all())

@@ -38,13 +38,14 @@ def validate_geometry(geometry: dict) -> list[str]:
 
     # 1. Range check on the raw numbers. Shapely doesn't know what a latitude is.
     #    Report only the first bad point per ring, to keep the message short.
+    #    Never echo the value itself: it is a coordinate.
     for ring in _rings(geometry):
         for lon, lat in ring:
             if not -180 <= lon <= 180:
-                errors.append(f"longitude {lon} is out of range (-180..180)")
+                errors.append("longitude out of range (-180..180)")
                 break
             if not -90 <= lat <= 90:
-                errors.append(f"latitude {lat} is out of range (-90..90)")
+                errors.append("latitude out of range (-90..90); latitude and longitude may be swapped")
                 break
 
     # 2. Closed check on the raw ring. Shapely would silently close it for us.
@@ -58,7 +59,10 @@ def validate_geometry(geometry: dict) -> list[str]:
         return errors
     shp = shape(geometry)
     if not shp.is_valid:
-        errors.append(f"invalid shape: {explain_validity(shp)}")
+        # explain_validity gives e.g. "Self-intersection[-76 1.9]". Drop the
+        # "[...]" part: it holds coordinates, which must never reach the LLM.
+        reason = explain_validity(shp).split("[")[0]
+        errors.append(f"invalid shape: {reason}")
     return errors
 
 
