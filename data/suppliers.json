@@ -1,0 +1,42 @@
+[
+  {
+    "supplier_id": "SUP-001",
+    "name": "Hawassa Highland Coffee Union",
+    "country": "ET",
+    "contact_name": "Meseret Alemayehu Gebre",
+    "contact_phone": "+251 911 482 736",
+    "contact_national_id": "ET-FIN-4827-3361-09"
+  },
+  {
+    "supplier_id": "SUP-002",
+    "name": "Cooperativa Cafetera Valle del Laboyos",
+    "country": "CO",
+    "contact_name": "Luz Marina Quintero Ospina",
+    "contact_phone": "+57 312 584 2210",
+    "contact_national_id": "CC 1.083.927.415"
+  },
+  {
+    "supplier_id": "SUP-003",
+    "name": "Fazenda Serra Azul Cafés Especiais",
+    "country": "BR",
+    "contact_name": "Rogério Tavares Junqueira",
+    "contact_phone": "+55 35 99814-2307",
+    "contact_national_id": "CPF 482.913.756-20"
+  },
+  {
+    "supplier_id": "SUP-004",
+    "name": "Dak Lak Robusta Trading Co.",
+    "country": "VN",
+    "contact_name": "Nguyễn Thị Thu Hằng",
+    "contact_phone": "+84 905 318 472",
+    "contact_national_id": "CCCD 066184002917"
+  },
+  {
+    "supplier_id": "SUP-005",
+    "name": "Cooperativa Agrícola Vale do Jamari",
+    "country": "BR",
+    "contact_name": "Edinaldo Pereira Bortolini",
+    "contact_phone": "+55 69 99237-5841",
+    "contact_national_id": "CPF 715.284.390-61"
+  }
+]

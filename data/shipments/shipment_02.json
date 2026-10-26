@@ -1,0 +1,19 @@
+{
+  "shipment_id": "SHP-2026-002",
+  "hs_code": "0901.11",
+  "quantity_kg": 21600,
+  "production_period": {
+    "start": "2026-05-01",
+    "end": "2026-08-31"
+  },
+  "supplier_ids": [
+    "SUP-003",
+    "SUP-004"
+  ],
+  "plot_ids": [
+    "P09",
+    "P11",
+    "P13",
+    "P14"
+  ]
+}

@@ -1,0 +1,621 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              38.199394,
+              6.159598
+            ],
+            [
+              38.200606,
+              6.159598
+            ],
+            [
+              38.200606,
+              6.160402
+            ],
+            [
+              38.199394,
+              6.160402
+            ],
+            [
+              38.199394,
+              6.159598
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P01",
+        "supplier_id": "SUP-001",
+        "declared_country": "ET",
+        "declared_area_ha": 1.2,
+        "farmer_name": "Tesfaye Bekele Woldemariam",
+        "farmer_phone": "+251 912 304 118"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.48,
+          6.7
+        ]
+      },
+      "properties": {
+        "plot_id": "P02",
+        "supplier_id": "SUP-001",
+        "declared_country": "ET",
+        "declared_area_ha": 0.8,
+        "farmer_name": "Almaz Girma Haile",
+        "farmer_phone": "+251 916 775 092"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.35,
+          6.45
+        ]
+      },
+      "properties": {
+        "plot_id": "P03",
+        "supplier_id": "SUP-001",
+        "declared_country": "ET",
+        "declared_area_ha": 5.5,
+        "farmer_name": "Dawit Mekonnen Assefa",
+        "farmer_phone": "+251 913 640 257"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              36.949326,
+              -0.420449
+            ],
+            [
+              36.950674,
+              -0.420449
+            ],
+            [
+              36.950674,
+              -0.419551
+            ],
+            [
+              36.949326,
+              -0.419551
+            ],
+            [
+              36.949326,
+              -0.420449
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P04",
+        "supplier_id": "SUP-001",
+        "declared_country": "ET",
+        "declared_area_ha": 1.5,
+        "farmer_name": "Kebede Tolosa Fikru",
+        "farmer_phone": "+251 918 223 905"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -76.05087,
+              1.84942
+            ],
+            [
+              -76.04913,
+              1.84942
+            ],
+            [
+              -76.04913,
+              1.85058
+            ],
+            [
+              -76.05087,
+              1.85058
+            ],
+            [
+              -76.05087,
+              1.84942
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P05",
+        "supplier_id": "SUP-002",
+        "declared_country": "CO",
+        "declared_area_ha": 2.5,
+        "farmer_name": "Jhon Fredy Cuéllar Perdomo",
+        "farmer_phone": "+57 315 220 8841"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.98,
+          2.2
+        ]
+      },
+      "properties": {
+        "plot_id": "P06",
+        "supplier_id": "SUP-002",
+        "declared_country": "CO",
+        "declared_area_ha": 1.5,
+        "farmer_name": "María Eugenia Rojas Trujillo",
+        "farmer_phone": "+57 311 904 3376"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -76.00055,
+              1.899633
+            ],
+            [
+              -75.99945,
+              1.900367
+            ],
+            [
+              -75.99945,
+              1.899633
+            ],
+            [
+              -76.00055,
+              1.900367
+            ],
+            [
+              -76.00055,
+              1.899633
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P07",
+        "supplier_id": "SUP-002",
+        "declared_country": "CO",
+        "declared_area_ha": 1.0,
+        "farmer_name": "Edilson Andrés Muñoz Gaitán",
+        "farmer_phone": "+57 320 615 7702"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -78.620738,
+              -0.930492
+            ],
+            [
+              -78.619262,
+              -0.930492
+            ],
+            [
+              -78.619262,
+              -0.929508
+            ],
+            [
+              -78.620738,
+              -0.929508
+            ],
+            [
+              -78.620738,
+              -0.930492
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P08",
+        "supplier_id": "SUP-002",
+        "declared_country": "CO",
+        "declared_area_ha": 1.8,
+        "farmer_name": "Ana Lucía Bermeo Castro",
+        "farmer_phone": "+57 318 477 1953"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -45.431449,
+              -21.550898
+            ],
+            [
+              -45.428551,
+              -21.550898
+            ],
+            [
+              -45.428551,
+              -21.549102
+            ],
+            [
+              -45.431449,
+              -21.549102
+            ],
+            [
+              -45.431449,
+              -21.550898
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P09",
+        "supplier_id": "SUP-003",
+        "declared_country": "BR",
+        "declared_area_ha": 6.0,
+        "farmer_name": "José Carlos Ribeiro Mendes",
+        "farmer_phone": "+55 35 99701-4482"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -45.2,
+          -21.4
+        ]
+      },
+      "properties": {
+        "plot_id": "P10",
+        "supplier_id": "SUP-003",
+        "declared_country": "BR",
+        "declared_area_ha": 12.0,
+        "farmer_name": "Antônio Marcos Vilela Prado",
+        "farmer_phone": "+55 35 98852-1907"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -45.001022,
+              -21.250635
+            ],
+            [
+              -44.998978,
+              -21.250635
+            ],
+            [
+              -44.998978,
+              -21.249365
+            ],
+            [
+              -45.001022,
+              -21.249365
+            ],
+            [
+              -45.001022,
+              -21.250635
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P11",
+        "supplier_id": "SUP-003",
+        "declared_country": "BR",
+        "declared_area_ha": 3.0,
+        "farmer_name": "Cláudia Regina Faria Lopes",
+        "farmer_phone": "+55 35 99134-6620"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -45.100835,
+              -21.300519
+            ],
+            [
+              -45.099165,
+              -21.300519
+            ],
+            [
+              -45.099165,
+              -21.299481
+            ],
+            [
+              -45.100835,
+              -21.299481
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P12",
+        "supplier_id": "SUP-003",
+        "declared_country": "BR",
+        "declared_area_ha": 2.0,
+        "farmer_name": "Sebastião Ferreira da Cunha",
+        "farmer_phone": "+55 35 99488-0315"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.05,
+          12.67
+        ]
+      },
+      "properties": {
+        "plot_id": "P13",
+        "supplier_id": "SUP-004",
+        "declared_country": "VN",
+        "declared_area_ha": 1.0,
+        "farmer_name": "Trần Văn Phúc",
+        "farmer_phone": "+84 914 207 385"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              108.199202,
+              12.799481
+            ],
+            [
+              108.200798,
+              12.799481
+            ],
+            [
+              108.200798,
+              12.800519
+            ],
+            [
+              108.199202,
+              12.800519
+            ],
+            [
+              108.199202,
+              12.799481
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P14",
+        "supplier_id": "SUP-004",
+        "declared_country": "VN",
+        "declared_area_ha": 2.0,
+        "farmer_name": "Lê Thị Mai Anh",
+        "farmer_phone": "+84 935 662 019"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              12.749551,
+              108.099309
+            ],
+            [
+              12.749551,
+              108.100691
+            ],
+            [
+              12.750449,
+              108.100691
+            ],
+            [
+              12.750449,
+              108.099309
+            ],
+            [
+              12.749551,
+              108.099309
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P15",
+        "supplier_id": "SUP-004",
+        "declared_country": "VN",
+        "declared_area_ha": 1.5,
+        "farmer_name": "Phạm Quốc Bảo",
+        "farmer_phone": "+84 983 140 576"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.0,
+          12.6
+        ]
+      },
+      "properties": {
+        "plot_id": "P16",
+        "supplier_id": "SUP-004",
+        "declared_country": "VN",
+        "declared_area_ha": 4.8,
+        "farmer_name": "Hoàng Minh Tuấn",
+        "farmer_phone": "+84 906 891 234"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -61.45105,
+              -11.430686
+            ],
+            [
+              -61.44895,
+              -11.430686
+            ],
+            [
+              -61.44895,
+              -11.429314
+            ],
+            [
+              -61.45105,
+              -11.429314
+            ],
+            [
+              -61.45105,
+              -11.430686
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P17",
+        "supplier_id": "SUP-005",
+        "declared_country": "BR",
+        "declared_area_ha": 3.5,
+        "farmer_name": "Valdecir Antônio Schmitz",
+        "farmer_phone": "+55 69 99312-7046"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.3,
+          -11.6
+        ]
+      },
+      "properties": {
+        "plot_id": "P18",
+        "supplier_id": "SUP-005",
+        "declared_country": "BR",
+        "declared_area_ha": 2.0,
+        "farmer_name": "Rosilene Aparecida Kloster",
+        "farmer_phone": "+55 69 98475-2391"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.301578,
+              -9.551037
+            ],
+            [
+              -64.298422,
+              -9.551037
+            ],
+            [
+              -64.298422,
+              -9.548963
+            ],
+            [
+              -64.301578,
+              -9.548963
+            ],
+            [
+              -64.301578,
+              -9.551037
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P19",
+        "supplier_id": "SUP-005",
+        "declared_country": "BR",
+        "declared_area_ha": 8.0,
+        "farmer_name": "Gilmar José Stedile",
+        "farmer_phone": "+55 69 99208-6614"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -64.101248,
+              -9.70082
+            ],
+            [
+              -64.098752,
+              -9.70082
+            ],
+            [
+              -64.098752,
+              -9.69918
+            ],
+            [
+              -64.101248,
+              -9.69918
+            ],
+            [
+              -64.101248,
+              -9.70082
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "plot_id": "P20",
+        "supplier_id": "SUP-005",
+        "declared_country": "BR",
+        "declared_area_ha": 5.0,
+        "farmer_name": "Marcia Helena Porto Vieira",
+        "farmer_phone": "+55 69 99671-0538"
+      }
+    }
+  ]
+}

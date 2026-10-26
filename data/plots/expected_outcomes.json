@@ -1,0 +1,22 @@
+{
+  "P01": "ok",
+  "P02": "ok",
+  "P03": "point_too_large",
+  "P04": "country_mismatch",
+  "P05": "ok",
+  "P06": "ok",
+  "P07": "invalid_geometry",
+  "P08": "country_mismatch",
+  "P09": "ok",
+  "P10": "point_too_large",
+  "P11": "ok",
+  "P12": "invalid_geometry",
+  "P13": "ok",
+  "P14": "ok",
+  "P15": "invalid_geometry",
+  "P16": "point_too_large",
+  "P17": "ok",
+  "P18": "ok",
+  "P19": "forest_loss",
+  "P20": "forest_loss"
+}
