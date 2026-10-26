@@ -76,14 +76,12 @@ def find_country(geometry: dict, countries: list[tuple[str, BaseGeometry]]) -> s
 
     `countries` is a list of (iso_code, border_shape) pairs, e.g. ("ET", <MultiPolygon>).
     """
-    # TODO(Hassan): implement. About 5 lines.
-    # Hints:
-    # - Turn the plot into ONE point you can test: shape(geometry).representative_point()
-    #   gives a point guaranteed to lie inside the shape (works for Points too).
-    # - Loop over the (code, border) pairs and return the code of the first
-    #   border that .contains(...) that point.
-    # - If no border contains it (e.g. in the ocean), return None.
-    raise NotImplementedError
+    # One point guaranteed to lie inside the plot (for a Point: the point itself).
+    point = shape(geometry).representative_point()
+    for code, border in countries:
+        if border.contains(point):
+            return code
+    return None  # in no country, e.g. in the ocean
 
 
 def check_point_or_polygon(geometry: dict, declared_area_ha: float) -> list[str]:
