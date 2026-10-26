@@ -1,0 +1,25 @@
+[project]
+name = "eudr"
+version = "0.1.0"
+description = "Checks coffee supplier data against the EU Deforestation Regulation and drafts a due diligence statement"
+readme = "README.md"
+authors = [
+    { name = "hashos034", email = "153015409+hashos034@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=4.1.4",
+    "shapely>=2.2.0",
+]
+
+[project.scripts]
+eudr = "eudr:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
