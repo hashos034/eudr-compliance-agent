@@ -2,7 +2,7 @@
 
 A one-week build (26 Oct – 1 Nov 2026): an agent that checks supplier data for coffee shipments against the EU Deforestation Regulation and drafts a due diligence statement (DDS) for a human to approve.
 
-- The plan: `docs/weekplan.md` (in Dutch). The problem: `docs/problem.md`.
+- The plan: `docs/weekplan.md`. The problem: `docs/problem.md`.
 - What Hassan has learned so far: `docs/learning-log.md`.
 
 ## Design rules (do not break these)
