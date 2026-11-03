@@ -1,6 +1,9 @@
 # Secrets: never commit these
 .env
 
+# Run logs
+logs/
+
 # Python
 __pycache__/
 *.pyc
