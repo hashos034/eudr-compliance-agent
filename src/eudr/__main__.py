@@ -28,6 +28,10 @@ def main() -> int:
     for plot in result.plots:
         print(f"  {plot.plot_id}  {plot.status:<9} {plot.reason:<18} {plot.explanation}")
 
+    print("\nProof of legality (from supplier notes):\n")
+    for supplier in result.suppliers:
+        print(f"  {supplier.supplier_id}  {supplier.legality:<11} {supplier.explanation}")
+
     cost = tracker.summary()
     print(f"\nEstimated cost: ${cost['estimated_cost_usd'] or 0:.4f}")
     for name, usage in cost["agents"].items():

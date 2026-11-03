@@ -32,5 +32,5 @@ def test_requires_an_explanation():
 
 
 def test_shipment_drops_fields_the_llm_should_not_see():
-    shipment = Shipment(shipment_id="S1", plot_ids=["P01"], supplier_ids=["SUP-001"])
-    assert set(shipment.model_dump()) == {"shipment_id", "plot_ids"}
+    shipment = Shipment(shipment_id="S1", plot_ids=["P01"], supplier_ids=["SUP-001"], quantity_kg=100)
+    assert set(shipment.model_dump()) == {"shipment_id", "plot_ids", "supplier_ids"}

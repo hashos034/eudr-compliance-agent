@@ -45,6 +45,8 @@ Supplier data goes in, and a draft due diligence statement (DDS) comes out for a
 
 Each subagent may only use its own MCP server. For example, the geo subagent can't call forest-mcp.
 
+Personal data is handled in two ways. Structured fields, like `farmer_phone`, are never given to an agent at all. Free text, like supplier notes, has to be read by an agent, so it goes through the PII guardrail first.
+
 ## Part 2: from results to a statement
 
 ```text
@@ -74,10 +76,10 @@ Each subagent may only use its own MCP server. For example, the geo subagent can
 | Part | Job | Status |
 | --- | --- | --- |
 | geo-mcp | Validates geometry, measures area, applies the 4 ha rule, finds the country | **Built and tested** |
-| Orchestrator and geo subagent | Run the check and return a structured result per plot | To build |
-| CLI | Starts a check with one command | To build |
-| Cost tracker | Logs tokens and cost per run and per agent | To build |
-| PII guardrail | Replaces personal data with pseudonyms before every LLM call | To build |
+| Orchestrator and geo subagent | Run the check and return a structured result per plot and supplier | **Built and tested** |
+| CLI | Starts a check with one command | **Built and tested** |
+| Cost tracker | Logs tokens and cost per run and per agent | **Built and tested** |
+| PII guardrail | Replaces personal data in supplier notes with placeholders before the LLM sees them, and restores it for the human reviewer | **Built and tested** |
 | forest-mcp and forest subagent | Report forest loss after 2020 per plot | To build |
 | Risk score | Combines the results into a score per plot | To build |
 | Human review and DDS draft | Generate the draft only after approval | To build |

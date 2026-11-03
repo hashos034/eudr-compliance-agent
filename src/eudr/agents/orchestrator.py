@@ -20,7 +20,9 @@ from claude_agent_sdk import (
 
 from eudr.agents.prompts import GEO_SUBAGENT_PROMPT, ORCHESTRATOR_PROMPT
 from eudr.cost_tracker import CostTracker
+from eudr.guardrails.pii import Pseudonymizer
 from eudr.schemas import Shipment, ShipmentCheck
+from eudr.supplier_data import load_known_pii, load_suppliers
 
 ROOT = Path(__file__).resolve().parents[3]
 MODEL = "claude-opus-5-5"
@@ -96,14 +98,50 @@ def assert_tools_are_locked_down(tools: list[str]) -> None:
         raise RuntimeError(f"Stopping: orchestrator has unexpected tools: {sorted(extra)}")
 
 
-def assert_all_plots_covered(shipment: Shipment, check: ShipmentCheck) -> None:
-    """The LLM could skip a plot, so code confirms that every plot got exactly one verdict."""
-    returned = [plot.plot_id for plot in check.plots]
-    if sorted(returned) != sorted(shipment.plot_ids):
+def assert_everything_covered(shipment: Shipment, check: ShipmentCheck) -> None:
+    """The LLM could skip something, so code confirms each plot and supplier got exactly one result."""
+    returned_plots = sorted(plot.plot_id for plot in check.plots)
+    returned_suppliers = sorted(supplier.supplier_id for supplier in check.suppliers)
+    if returned_plots != sorted(shipment.plot_ids) or returned_suppliers != sorted(shipment.supplier_ids):
         raise RuntimeError(
-            f"Verdicts don't match the shipment: expected {sorted(shipment.plot_ids)}, "
-            f"got {sorted(returned)}"
+            f"Results don't match the shipment: got plots {returned_plots} "
+            f"and suppliers {returned_suppliers}"
         )
+
+
+def build_prompt(shipment: Shipment, pseudonymizer: Pseudonymizer) -> str:
+    """What the LLM receives. Supplier notes are the only free text, and they go through the guardrail."""
+    suppliers = load_suppliers()
+    prompt = json.dumps(
+        {
+            "shipment_id": shipment.shipment_id,
+            "plot_ids": shipment.plot_ids,
+            "suppliers": [
+                {
+                    "supplier_id": supplier_id,
+                    "note": pseudonymizer.pseudonymize(suppliers[supplier_id]["notes"]),
+                }
+                for supplier_id in shipment.supplier_ids
+            ],
+        },
+        ensure_ascii=False,
+    )
+    pseudonymizer.assert_clean(prompt)
+    return prompt
+
+
+def restore_personal_data(check: ShipmentCheck, pseudonymizer: Pseudonymizer) -> ShipmentCheck:
+    """Put real names back in the explanations. The result is for the human reviewer only."""
+
+    def restored(item):
+        return item.model_copy(update={"explanation": pseudonymizer.restore(item.explanation)})
+
+    return check.model_copy(
+        update={
+            "plots": [restored(plot) for plot in check.plots],
+            "suppliers": [restored(supplier) for supplier in check.suppliers],
+        }
+    )
 
 
 async def check_shipment(path: Path, geo_prompt: str = GEO_SUBAGENT_PROMPT) -> tuple[ShipmentCheck, CostTracker]:
@@ -113,12 +151,14 @@ async def check_shipment(path: Path, geo_prompt: str = GEO_SUBAGENT_PROMPT) -> t
         raise RuntimeError("ANTHROPIC_API_KEY is not set. Add it to .env.")
 
     shipment = Shipment.model_validate_json(path.read_text())
+    pseudonymizer = Pseudonymizer(load_known_pii())
+    prompt = build_prompt(shipment, pseudonymizer)
     tracker = CostTracker(shipment.shipment_id)
     result: ResultMessage | None = None
 
     try:
         async for message in query(
-            prompt=json.dumps(shipment.model_dump()),
+            prompt=prompt,
             options=build_options(geo_prompt),
         ):
             if isinstance(message, SystemMessage) and message.subtype == "init":
@@ -134,5 +174,5 @@ async def check_shipment(path: Path, geo_prompt: str = GEO_SUBAGENT_PROMPT) -> t
         raise RuntimeError(f"The check ended without a valid verdict ({subtype}).")
 
     check = ShipmentCheck.model_validate(result.structured_output)
-    assert_all_plots_covered(shipment, check)
-    return check, tracker
+    assert_everything_covered(shipment, check)
+    return restore_personal_data(check, pseudonymizer), tracker

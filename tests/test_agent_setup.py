@@ -10,14 +10,14 @@ from fastmcp.client.transports import StdioTransport
 
 from eudr.agents.orchestrator import (
     GEO_TOOLS,
-    assert_all_plots_covered,
+    assert_everything_covered,
     assert_tools_are_locked_down,
     build_options,
     check_shipment,
     geo_server_config,
 )
 from eudr.cost_tracker import CostTracker
-from eudr.schemas import PlotCheck, Shipment, ShipmentCheck
+from eudr.schemas import PlotCheck, Shipment, ShipmentCheck, SupplierCheck
 
 
 def test_orchestrator_only_gets_the_agent_tool():
@@ -61,21 +61,33 @@ def test_empty_prompt_stops_before_any_llm_call(tmp_path):
         asyncio.run(check_shipment(tmp_path / "unused.json", geo_prompt=" "))
 
 
-def _verdicts(*plot_ids: str) -> ShipmentCheck:
+SHIPMENT = Shipment(shipment_id="S1", supplier_ids=["SUP-1"], plot_ids=["P1", "P2"])
+
+
+def _results(plot_ids: tuple[str, ...], supplier_ids: tuple[str, ...] = ("SUP-1",)) -> ShipmentCheck:
     return ShipmentCheck(
         shipment_id="S1",
         plots=[PlotCheck.model_construct(plot_id=plot_id) for plot_id in plot_ids],
+        suppliers=[SupplierCheck.model_construct(supplier_id=s) for s in supplier_ids],
     )
 
 
-def test_all_plots_covered_passes_when_they_match():
-    assert_all_plots_covered(Shipment(shipment_id="S1", plot_ids=["P1", "P2"]), _verdicts("P2", "P1"))
+def test_coverage_check_passes_when_everything_matches():
+    assert_everything_covered(SHIPMENT, _results(("P2", "P1")))
 
 
-@pytest.mark.parametrize("returned", [("P1",), ("P1", "P2", "P3"), ("P1", "P1")])
-def test_all_plots_covered_catches_missing_extra_and_duplicate(returned):
+@pytest.mark.parametrize(
+    "returned",
+    [
+        _results(("P1",)),
+        _results(("P1", "P2", "P3")),
+        _results(("P1", "P1")),
+        _results(("P1", "P2"), supplier_ids=()),
+    ],
+)
+def test_coverage_check_catches_missing_extra_and_duplicate(returned):
     with pytest.raises(RuntimeError, match="don't match"):
-        assert_all_plots_covered(Shipment(shipment_id="S1", plot_ids=["P1", "P2"]), _verdicts(*returned))
+        assert_everything_covered(SHIPMENT, returned)
 
 
 def _step(message_id: str, input_tokens: int, parent: str | None = None, content=None) -> AssistantMessage:

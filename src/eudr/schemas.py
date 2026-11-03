@@ -10,9 +10,10 @@ from pydantic import BaseModel
 
 
 class Shipment(BaseModel):
-    """The only shipment fields the LLM sees. Any other field in the file is dropped."""
+    """The shipment fields a check uses. Any other field in the file is dropped."""
 
     shipment_id: str
+    supplier_ids: list[str]
     plot_ids: list[str]
 
 
@@ -25,8 +26,17 @@ class PlotCheck(BaseModel):
     explanation: str
 
 
+class SupplierCheck(BaseModel):
+    """What a supplier's notes say about proof of legality."""
+
+    supplier_id: str
+    legality: Literal["documented", "gap"]
+    explanation: str
+
+
 class ShipmentCheck(BaseModel):
     """The verdict on a whole shipment."""
 
     shipment_id: str
     plots: list[PlotCheck]
+    suppliers: list[SupplierCheck]
