@@ -25,6 +25,7 @@ SUPPLIERS = [
         "contact_name": "Meseret Alemayehu Gebre",
         "contact_phone": "+251 911 482 736",
         "contact_national_id": "ET-FIN-4827-3361-09",
+        "notes": "Spoke with Meseret Alemayehu Gebre (+251 911 482 736) on 12 May. Land title documents and the 2026 tax certificate for all member farms are on file at the union office.",
     },
     {
         "supplier_id": "SUP-002",
@@ -33,6 +34,7 @@ SUPPLIERS = [
         "contact_name": "Luz Marina Quintero Ospina",
         "contact_phone": "+57 312 584 2210",
         "contact_national_id": "CC 1.083.927.415",
+        "notes": "Land title for Edilson Andrés Muñoz Gaitán's farm is still pending at the municipality. Ask Luz Marina Quintero Ospina, CC 1.083.927.415, for an update.",
     },
     {
         "supplier_id": "SUP-003",
@@ -41,6 +43,7 @@ SUPPLIERS = [
         "contact_name": "Rogério Tavares Junqueira",
         "contact_phone": "+55 35 99814-2307",
         "contact_national_id": "CPF 482.913.756-20",
+        "notes": "Rogério Tavares Junqueira sent the 2026 labour inspection report and land registry extracts. All in order.",
     },
     {
         "supplier_id": "SUP-004",
@@ -49,6 +52,7 @@ SUPPLIERS = [
         "contact_name": "Nguyễn Thị Thu Hằng",
         "contact_phone": "+84 905 318 472",
         "contact_national_id": "CCCD 066184002917",
+        "notes": "No legality documents received yet. Mrs. Nguyễn Thị Thu Hằng, phone +84 905 318 472, says the tax certificate will follow.",
     },
     {
         "supplier_id": "SUP-005",
@@ -57,6 +61,7 @@ SUPPLIERS = [
         "contact_name": "Edinaldo Pereira Bortolini",
         "contact_phone": "+55 69 99237-5841",
         "contact_national_id": "CPF 715.284.390-61",
+        "notes": "Gilmar José Stedile told our field agent Carlos Mendoza (carlos.mendoza@example.com) that his land lease expired in January and has not been renewed.",
     },
 ]
 
