@@ -9,7 +9,10 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "claude-agent-sdk>=0.2.177",
+    "en-core-web-md",
     "fastmcp>=4.1.4",
+    "presidio-analyzer>=2.2.366",
+    "presidio-anonymizer>=2.2.366",
     "pydantic>=2.14.1",
     "pyproj>=3.8.0",
     "python-dotenv>=1.2.4",
@@ -30,3 +33,6 @@ dev = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.uv.sources]
+en-core-web-md = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl" }
