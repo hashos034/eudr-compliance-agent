@@ -1,0 +1,10 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file: .env
+    volumes:
+      # Checks hold personal data, so they stay on your machine, outside the image.
+      - ./checks:/app/checks
+      - ./logs:/app/logs
