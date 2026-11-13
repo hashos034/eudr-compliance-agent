@@ -48,7 +48,7 @@ async def approve(
     check_id: str,
     reviewer: str,
     comment: str = "",
-    summarize: Summarizer = dds.write_summary,
+    summarize: Summarizer | None = None,
 ) -> CheckRecord:
     record = store.load(check_id)
     if record.status != "awaiting_review":
@@ -62,6 +62,7 @@ async def approve(
         raise ReviewError("A reviewer name is required.")
 
     record.review = Review(decision="approved", reviewer=reviewer, comment=comment, at=now())
+    summarize = summarize or dds.write_summary  # looked up now, so tests can swap it
     summary, cost = await summarize(record)  # pseudonymized record in, so no names reach the LLM
     draft = dds.render(record, store.restore(check_id, summary))
     store.dds_path(check_id).write_text(draft)
