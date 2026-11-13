@@ -1,8 +1,8 @@
-"""Runs one shipment check: the orchestrator delegates to the geo subagent.
+"""Runs one shipment check: the orchestrator delegates to the geo and forest subagents.
 
 Most of this file enforces the data boundary. Agents get no file or shell
-tools, so the only way they can learn about a plot is through geo-mcp, which
-returns results and never coordinates.
+tools, so the only way they can learn about a plot is through geo-mcp and
+forest-mcp, which return results and never coordinates.
 """
 
 import json
@@ -18,7 +18,7 @@ from claude_agent_sdk import (
     query,
 )
 
-from eudr.agents.prompts import GEO_SUBAGENT_PROMPT, ORCHESTRATOR_PROMPT
+from eudr.agents.prompts import FOREST_SUBAGENT_PROMPT, GEO_SUBAGENT_PROMPT, ORCHESTRATOR_PROMPT
 from eudr.cost_tracker import CostTracker
 from eudr.guardrails.pii import Pseudonymizer
 from eudr.schemas import Shipment, ShipmentCheck
@@ -35,19 +35,29 @@ GEO_TOOLS = [
     "mcp__geo__check_country",
 ]
 
+FOREST_TOOLS = ["mcp__forest__check_forest_loss"]
+
 # Everything the orchestrator itself may have. Its subagent is called through
 # "Agent", which the SDK can also list as "Task".
 ALLOWED_ORCHESTRATOR_TOOLS = {"Agent", "Task", "StructuredOutput"}
 
 
-def geo_server_config() -> dict:
-    """How to start geo-mcp as a separate process."""
+def server_config(module: str) -> dict:
+    """How to start an MCP server as a separate process."""
     return {
         "type": "stdio",
         "command": sys.executable,
-        "args": ["-m", "mcp_servers.geo_mcp.server"],
+        "args": ["-m", f"mcp_servers.{module}.server"],
         "env": {"PYTHONPATH": str(ROOT)},
     }
+
+
+def geo_server_config() -> dict:
+    return server_config("geo_mcp")
+
+
+def forest_server_config() -> dict:
+    return server_config("forest_mcp")
 
 
 def build_options(geo_prompt: str) -> ClaudeAgentOptions:
@@ -57,7 +67,7 @@ def build_options(geo_prompt: str) -> ClaudeAgentOptions:
         # The base tool list. Read, Bash and the rest are not in the session at all.
         tools=["Agent"],
         # Pre-approves these calls. dontAsk below denies everything else.
-        allowed_tools=["Agent", *GEO_TOOLS],
+        allowed_tools=["Agent", *GEO_TOOLS, *FOREST_TOOLS],
         disallowed_tools=["Agent(fork)"],
         permission_mode="dontAsk",
         agents={
@@ -70,13 +80,22 @@ def build_options(geo_prompt: str) -> ClaudeAgentOptions:
                 model=MODEL,
                 background=False,
             ),
+            "forest-checker": AgentDefinition(
+                description="Checks EUDR plots for tree cover loss after 2020, by plot ID.",
+                prompt=FOREST_SUBAGENT_PROMPT,
+                tools=FOREST_TOOLS,
+                # Only this agent has forest-mcp, and it has nothing else.
+                mcpServers=[{"forest": forest_server_config()}],
+                model=MODEL,
+                background=False,
+            ),
         },
         # Ignore this machine's CLAUDE.md, settings and MCP servers, so the
         # agent's context is exactly what this file defines.
         setting_sources=[],
         strict_mcp_config=True,
         output_format={"type": "json_schema", "schema": ShipmentCheck.model_json_schema()},
-        max_turns=15,
+        max_turns=20,
         max_budget_usd=MAX_COST_USD,
         # Without this the stream skips the subagent's final response, so the
         # cost tracker would undercount it.

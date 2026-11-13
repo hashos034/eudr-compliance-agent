@@ -10,6 +10,10 @@ def load_suppliers(path: Path = DATA / "suppliers.json") -> dict[str, dict]:
     return {supplier["supplier_id"]: supplier for supplier in json.loads(path.read_text())}
 
 
+def load_supplier_countries() -> dict[str, str]:
+    return {supplier_id: s["country"] for supplier_id, s in load_suppliers().items()}
+
+
 def load_known_pii() -> dict[str, list[str]]:
     """Every name, phone number and ID our own structured data holds."""
     suppliers = load_suppliers().values()

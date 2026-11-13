@@ -1,4 +1,4 @@
-"""Generate the fake test data: 5 suppliers, 20 plots and 2 shipments.
+"""Generate the fake test data: 5 suppliers, 20 plots and 3 shipments.
 
 Run with: uv run python scripts/make_fake_data.py
 
@@ -169,6 +169,16 @@ def main() -> None:
             "production_period": {"start": "2026-05-01", "end": "2026-08-31"},
             "supplier_ids": ["SUP-003", "SUP-004"],
             "plot_ids": ["P09", "P11", "P13", "P14"],
+        },
+        {
+            # The clean shipment: every plot passes and both suppliers have proof of
+            # legality, so this is the one that can reach a DDS draft.
+            "shipment_id": "SHP-2026-003",
+            "hs_code": "0901.11",
+            "quantity_kg": 9_600,
+            "production_period": {"start": "2026-04-01", "end": "2026-07-31"},
+            "supplier_ids": ["SUP-001", "SUP-003"],
+            "plot_ids": ["P01", "P02", "P09", "P11"],
         },
     ]
 

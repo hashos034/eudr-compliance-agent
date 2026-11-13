@@ -22,7 +22,14 @@ class PlotCheck(BaseModel):
 
     plot_id: str
     status: Literal["approved", "rejected"]
-    reason: Literal["ok", "invalid_geometry", "point_too_large", "country_mismatch"]
+    reason: Literal[
+        "ok",
+        "invalid_geometry",
+        "point_too_large",
+        "country_mismatch",
+        "forest_loss",
+        "forest_data_missing",
+    ]
     explanation: str
 
 

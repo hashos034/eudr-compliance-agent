@@ -8,6 +8,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from eudr.agents.orchestrator import check_shipment
+from eudr.risk import assess
+from eudr.schemas import Shipment
+from eudr.supplier_data import load_supplier_countries
 
 
 def main() -> int:
@@ -26,11 +29,20 @@ def main() -> int:
 
     print(f"Shipment {result.shipment_id}\n")
     for plot in result.plots:
-        print(f"  {plot.plot_id}  {plot.status:<9} {plot.reason:<18} {plot.explanation}")
+        print(f"  {plot.plot_id}  {plot.status:<9} {plot.reason:<20} {plot.explanation}")
 
     print("\nProof of legality (from supplier notes):\n")
     for supplier in result.suppliers:
         print(f"  {supplier.supplier_id}  {supplier.legality:<11} {supplier.explanation}")
+
+    shipment = Shipment.model_validate_json(args.shipment.read_text())
+    risk = assess(shipment, result, load_supplier_countries())
+    print("\nRisk (calculated in code):\n")
+    print(f"  Country risk: {risk.country_risk}")
+    if risk.can_draft_dds:
+        print("  Negligible risk: a DDS can be drafted after human review.")
+    for issue in risk.blocking_issues:
+        print(f"  BLOCKED  {issue}")
 
     cost = tracker.summary()
     print(f"\nEstimated cost: ${cost['estimated_cost_usd'] or 0:.4f}")

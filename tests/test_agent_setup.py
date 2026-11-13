@@ -9,11 +9,13 @@ from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
 from eudr.agents.orchestrator import (
+    FOREST_TOOLS,
     GEO_TOOLS,
     assert_everything_covered,
     assert_tools_are_locked_down,
     build_options,
     check_shipment,
+    forest_server_config,
     geo_server_config,
 )
 from eudr.cost_tracker import CostTracker
@@ -34,6 +36,12 @@ def test_geo_subagent_only_gets_geo_tools():
     assert all(tool.startswith("mcp__geo__") for tool in geo.tools)
 
 
+def test_forest_subagent_only_gets_forest_tools():
+    forest = build_options("prompt").agents["forest-checker"]
+    assert forest.tools == FOREST_TOOLS
+    assert [list(server) for server in forest.mcpServers] == [["forest"]]
+
+
 @pytest.mark.parametrize("tool", ["Read", "Bash", "Grep", "WebFetch", "mcp__geo__check_country"])
 def test_run_stops_if_orchestrator_has_another_tool(tool):
     with pytest.raises(RuntimeError, match="unexpected tools"):
@@ -44,16 +52,19 @@ def test_expected_orchestrator_tools_pass():
     assert_tools_are_locked_down(["Task", "StructuredOutput"])
 
 
-async def _server_tool_names() -> list[str]:
-    config = geo_server_config()
+async def _server_tool_names(config: dict) -> list[str]:
     transport = StdioTransport(command=config["command"], args=config["args"], env=config["env"])
     async with Client(transport) as client:
         return [tool.name for tool in await client.list_tools()]
 
 
-def test_geo_tool_names_match_the_real_server():
-    names = asyncio.run(_server_tool_names())
-    assert sorted(f"mcp__geo__{name}" for name in names) == sorted(GEO_TOOLS)
+@pytest.mark.parametrize(
+    "prefix, config, expected",
+    [("geo", geo_server_config(), GEO_TOOLS), ("forest", forest_server_config(), FOREST_TOOLS)],
+)
+def test_tool_names_match_the_real_server(prefix, config, expected):
+    names = asyncio.run(_server_tool_names(config))
+    assert sorted(f"mcp__{prefix}__{name}" for name in names) == sorted(expected)
 
 
 def test_empty_prompt_stops_before_any_llm_call(tmp_path):
