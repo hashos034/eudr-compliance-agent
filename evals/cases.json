@@ -1,0 +1,123 @@
+{
+  "plots": [
+    {
+      "plot_id": "P01",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P02",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P03",
+      "expected_reason": "point_too_large",
+      "note": "5.5 ha given as a point"
+    },
+    {
+      "plot_id": "P04",
+      "expected_reason": "country_mismatch",
+      "note": "declared Ethiopia, lies in Kenya"
+    },
+    {
+      "plot_id": "P05",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P06",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P07",
+      "expected_reason": "invalid_geometry",
+      "note": "self-intersecting polygon"
+    },
+    {
+      "plot_id": "P08",
+      "expected_reason": "country_mismatch",
+      "note": "declared Colombia, lies in Ecuador"
+    },
+    {
+      "plot_id": "P09",
+      "expected_reason": "ok",
+      "note": "6 ha, but a polygon, so allowed"
+    },
+    {
+      "plot_id": "P10",
+      "expected_reason": "point_too_large",
+      "note": "12 ha given as a point"
+    },
+    {
+      "plot_id": "P11",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P12",
+      "expected_reason": "invalid_geometry",
+      "note": "polygon ring not closed"
+    },
+    {
+      "plot_id": "P13",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P14",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P15",
+      "expected_reason": "invalid_geometry",
+      "note": "latitude and longitude swapped"
+    },
+    {
+      "plot_id": "P16",
+      "expected_reason": "point_too_large",
+      "note": "4.8 ha given as a point"
+    },
+    {
+      "plot_id": "P17",
+      "expected_reason": "ok"
+    },
+    {
+      "plot_id": "P18",
+      "expected_reason": "ok",
+      "note": "trap: tree cover loss in 2010 and 2013, before the cut-off"
+    },
+    {
+      "plot_id": "P19",
+      "expected_reason": "forest_loss",
+      "note": "tree cover loss in 2021 to 2023"
+    },
+    {
+      "plot_id": "P20",
+      "expected_reason": "forest_loss",
+      "note": "tree cover loss in 2021"
+    }
+  ],
+  "suppliers": [
+    {
+      "supplier_id": "SUP-001",
+      "expected_legality": "documented",
+      "note": "land titles and tax certificate on file"
+    },
+    {
+      "supplier_id": "SUP-002",
+      "expected_legality": "gap",
+      "note": "land title pending"
+    },
+    {
+      "supplier_id": "SUP-003",
+      "expected_legality": "documented",
+      "note": "inspection report and registry extracts received"
+    },
+    {
+      "supplier_id": "SUP-004",
+      "expected_legality": "gap",
+      "note": "no documents received yet"
+    },
+    {
+      "supplier_id": "SUP-005",
+      "expected_legality": "gap",
+      "note": "land lease expired"
+    }
+  ]
+}

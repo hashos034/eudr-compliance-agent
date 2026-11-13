@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-11-13T16:22:31+00:00",
+  "cases": 25,
+  "runs": [
+    {
+      "plot_accuracy": 1.0,
+      "supplier_accuracy": 1.0,
+      "overall_accuracy": 1.0,
+      "unsafe_approvals": 0,
+      "mistakes": [],
+      "seconds": 58,
+      "cost_usd": 0.3103
+    },
+    {
+      "plot_accuracy": 1.0,
+      "supplier_accuracy": 1.0,
+      "overall_accuracy": 1.0,
+      "unsafe_approvals": 0,
+      "mistakes": [],
+      "seconds": 54,
+      "cost_usd": 0.3513
+    },
+    {
+      "plot_accuracy": 1.0,
+      "supplier_accuracy": 1.0,
+      "overall_accuracy": 1.0,
+      "unsafe_approvals": 0,
+      "mistakes": [],
+      "seconds": 53,
+      "cost_usd": 0.2866
+    }
+  ]
+}
