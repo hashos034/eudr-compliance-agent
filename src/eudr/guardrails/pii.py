@@ -81,9 +81,11 @@ class Pseudonymizer:
 
     def restore(self, text: str) -> str:
         """Put the real values back. Only use this on output for the human reviewer."""
-        for token, value in self._value_for_token.items():
-            text = text.replace(token, value)
-        return text
+        return restore_with(self._value_for_token, text)
+
+    def lookup_table(self) -> dict[str, str]:
+        """{placeholder: real value}. Store it apart from the check, never send it to the LLM."""
+        return dict(self._value_for_token)
 
     def assert_clean(self, text: str) -> None:
         """Stop if a known value is still in the text.
@@ -94,3 +96,11 @@ class Pseudonymizer:
         leaks = sum(value in text for value in self._known_values)
         if leaks:
             raise RuntimeError(f"Stopping: {leaks} known personal value(s) still in the text for the LLM.")
+
+
+def restore_with(lookup_table: dict[str, str], text: str) -> str:
+    """Restore placeholders using a saved lookup table, for example in a later review step."""
+    # Longest first, so <PERSON_1> can't replace the start of <PERSON_10>.
+    for token in sorted(lookup_table, key=len, reverse=True):
+        text = text.replace(token, lookup_table[token])
+    return text

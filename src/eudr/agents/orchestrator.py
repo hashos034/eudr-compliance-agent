@@ -164,12 +164,26 @@ def restore_personal_data(check: ShipmentCheck, pseudonymizer: Pseudonymizer) ->
 
 
 async def check_shipment(path: Path, geo_prompt: str = GEO_SUBAGENT_PROMPT) -> tuple[ShipmentCheck, CostTracker]:
+    """Run a check and return it with real names restored, for a person to read."""
+    check_ready_to_run(geo_prompt)
+    shipment = Shipment.model_validate_json(path.read_text())
+    check, pseudonymizer, tracker = await run_check(shipment, geo_prompt)
+    return restore_personal_data(check, pseudonymizer), tracker
+
+
+def check_ready_to_run(geo_prompt: str) -> None:
+    """Fail fast, before any data is read or any LLM call is made."""
     if not geo_prompt.strip():
         raise RuntimeError("GEO_SUBAGENT_PROMPT is empty. Write it in src/eudr/agents/prompts.py.")
     if not os.environ.get("ANTHROPIC_API_KEY"):
         raise RuntimeError("ANTHROPIC_API_KEY is not set. Add it to .env.")
 
-    shipment = Shipment.model_validate_json(path.read_text())
+
+async def run_check(
+    shipment: Shipment, geo_prompt: str = GEO_SUBAGENT_PROMPT
+) -> tuple[ShipmentCheck, Pseudonymizer, CostTracker]:
+    """Run a check and return it still pseudonymized, with the pseudonymizer that can restore it."""
+    check_ready_to_run(geo_prompt)
     pseudonymizer = Pseudonymizer(load_known_pii())
     prompt = build_prompt(shipment, pseudonymizer)
     tracker = CostTracker(shipment.shipment_id)
@@ -194,4 +208,4 @@ async def check_shipment(path: Path, geo_prompt: str = GEO_SUBAGENT_PROMPT) -> t
 
     check = ShipmentCheck.model_validate(result.structured_output)
     assert_everything_covered(shipment, check)
-    return restore_personal_data(check, pseudonymizer), tracker
+    return check, pseudonymizer, tracker
