@@ -1,0 +1,133 @@
+{
+  "dataset": "GFC-2025-v1.13",
+  "min_canopy_pct": 10,
+  "fetched_on": "2026-11-13",
+  "plots": {
+    "P01": {
+      "geometry_sha256": "5b5f73c60582b976a525e6c28beea9fe4bef26977b677a30f510c020a9a7586e",
+      "status": "checked",
+      "measured_area_ha": 1.2321,
+      "loss_ha_by_year": {}
+    },
+    "P02": {
+      "geometry_sha256": "13c3eda6bf1133d230a5c31f59a50b5baf0a2d2961441aef2622c059727feb12",
+      "status": "checked",
+      "measured_area_ha": 0.9231,
+      "loss_ha_by_year": {}
+    },
+    "P03": {
+      "geometry_sha256": "ff4d299053da3a771a7a0357d0c6ea00dcdefc272ae76b3309e871cf31b80745",
+      "status": "checked",
+      "measured_area_ha": 5.849,
+      "loss_ha_by_year": {}
+    },
+    "P04": {
+      "geometry_sha256": "72d7d7ba5eb2aec05876e003359d3332bb9725c0c35d36e714046c7541226205",
+      "status": "checked",
+      "measured_area_ha": 1.8588,
+      "loss_ha_by_year": {}
+    },
+    "P05": {
+      "geometry_sha256": "52f39a76e8f17be694724774a893bc7e3479f5d668953d125cc6394bb3dcc8da",
+      "status": "checked",
+      "measured_area_ha": 1.8579,
+      "loss_ha_by_year": {}
+    },
+    "P06": {
+      "geometry_sha256": "52572677ca1184efeebc592de78d932b2e31d4452b250de99637a4a74bde588d",
+      "status": "checked",
+      "measured_area_ha": 1.2383,
+      "loss_ha_by_year": {}
+    },
+    "P07": {
+      "geometry_sha256": "59a2de76460866142be6ec5a793aa8f32e12d6d2c529bccc2c0ec43c07ebe733",
+      "status": "not_checked"
+    },
+    "P08": {
+      "geometry_sha256": "357d60c943255ef56ec544a633e82a3cd5bda8de48a96f68df0c5979e8d30e44",
+      "status": "checked",
+      "measured_area_ha": 1.8586,
+      "loss_ha_by_year": {}
+    },
+    "P09": {
+      "geometry_sha256": "debd82f3a6a5d29d39d5eeb1829e7f4619dd90e372afd7a97640f4785e1b4716",
+      "status": "checked",
+      "measured_area_ha": 6.9155,
+      "loss_ha_by_year": {}
+    },
+    "P10": {
+      "geometry_sha256": "140782c3208c8f93cee2138300d814d114da3b292fc09de1e6f10396937746e9",
+      "status": "checked",
+      "measured_area_ha": 12.4031,
+      "loss_ha_by_year": {}
+    },
+    "P11": {
+      "geometry_sha256": "ddf8442226e0b61499890626b390dadb543c7e196f86b4e6c6e5ec00ed6e26eb",
+      "status": "checked",
+      "measured_area_ha": 3.4649,
+      "loss_ha_by_year": {}
+    },
+    "P12": {
+      "geometry_sha256": "c76d9bf5bb019aa41e452434605565ca1bee5aa32925eed0f0c5e033d2ce109d",
+      "status": "not_checked"
+    },
+    "P13": {
+      "geometry_sha256": "24fc22c0deec1ec58f35a42aec9cd59d07efe2db6ee7a61bae5c4e18fc8b0a79",
+      "status": "checked",
+      "measured_area_ha": 0.9068,
+      "loss_ha_by_year": {}
+    },
+    "P14": {
+      "geometry_sha256": "d4ce6888554d22da3af4d8011d6cf8a69e49662c4911651d6b02f88a48de9693",
+      "status": "checked",
+      "measured_area_ha": 1.8126,
+      "loss_ha_by_year": {}
+    },
+    "P15": {
+      "geometry_sha256": "cf816e6954c2f0de3100e16cb66e40389556ff85608294964028a647a51a8884",
+      "status": "not_checked"
+    },
+    "P16": {
+      "geometry_sha256": "4b511da1ef4285f7b944551fd3350c8a3c81870acc52a08b40912bd8cd2e7071",
+      "status": "checked",
+      "measured_area_ha": 4.8375,
+      "loss_ha_by_year": {}
+    },
+    "P17": {
+      "geometry_sha256": "59a135bf0f942d0bf2ac55d37bbf2effd3ec323c85dd7b800f1f56e0b950ff5b",
+      "status": "checked",
+      "measured_area_ha": 3.6439,
+      "loss_ha_by_year": {}
+    },
+    "P18": {
+      "geometry_sha256": "cb15cff4bb5f1640b8c8428d76a6ca1a739a046b0a8bcc6faba3ab3543ebbcb0",
+      "status": "checked",
+      "measured_area_ha": 1.8209,
+      "loss_ha_by_year": {
+        "2010": 0.4552,
+        "2013": 0.0759
+      }
+    },
+    "P19": {
+      "geometry_sha256": "f09da4bc6e7b8dd1c610b7f349bc241581ef38d4a8d3293acedad1ecebd5eadc",
+      "status": "checked",
+      "measured_area_ha": 7.943,
+      "loss_ha_by_year": {
+        "2020": 3.5133,
+        "2021": 0.0764,
+        "2022": 2.2913,
+        "2023": 1.7566
+      }
+    },
+    "P20": {
+      "geometry_sha256": "e4477ba7c249bdf445ea57a0ed5a07a5f5e0944f30e5878a2d9859d0759243da",
+      "status": "checked",
+      "measured_area_ha": 5.3441,
+      "loss_ha_by_year": {
+        "2015": 0.9161,
+        "2019": 0.0763,
+        "2021": 2.6721
+      }
+    }
+  }
+}

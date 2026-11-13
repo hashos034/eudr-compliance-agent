@@ -91,10 +91,12 @@ PLOTS = [
     # --- SUP-005, Brazil (Rondônia) ---
     ("P17", "SUP-005", "Valdecir Antônio Schmitz", "+55 69 99312-7046", "polygon", (-11.43, -61.45), 3.5, "ok"),
     ("P18", "SUP-005", "Rosilene Aparecida Kloster", "+55 69 98475-2391", "point", (-11.60, -61.30), 2.0, "ok"),
-    # Candidates for forest loss after 2020 (Jaci-Paraná area). geo-mcp should pass
-    # them; forest-mcp should flag them. TODO Wednesday: confirm against GFW data.
-    ("P19", "SUP-005", "Gilmar José Stedile", "+55 69 99208-6614", "polygon", (-9.55, -64.30), 8.0, "forest_loss"),
-    ("P20", "SUP-005", "Marcia Helena Porto Vieira", "+55 69 99671-0538", "polygon", (-9.70, -64.10), 5.0, "forest_loss"),
+    # Real tree cover loss after 2020 (Jaci-Paraná area), found in the UMD loss data:
+    # P19 in 2021-2023, P20 in 2021. geo-mcp should pass them; forest-mcp should flag them.
+    # Their first locations, (-9.55, -64.30) and (-9.70, -64.10), had heavy loss but none
+    # after 2020, so they were legally clean and were moved.
+    ("P19", "SUP-005", "Gilmar José Stedile", "+55 69 99208-6614", "polygon", (-9.56, -64.3014), 8.0, "forest_loss"),
+    ("P20", "SUP-005", "Marcia Helena Porto Vieira", "+55 69 99671-0538", "polygon", (-9.6956, -64.1028), 5.0, "forest_loss"),
 ]
 
 
